@@ -1,0 +1,24 @@
+{
+  "name": "fox-game",
+  "version": "1.0.0",
+  "description": "a digital pet game to train a fox",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kuzzzzz/digital-pet.git"
+  },
+  "keywords": [
+    "vanillajs",
+    "javascript",
+    "games"
+  ],
+  "author": "kuzzzzz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kuzzzzz/digital-pet/issues"
+  },
+  "homepage": "https://github.com/kuzzzzz/digital-pet#readme"
+}
