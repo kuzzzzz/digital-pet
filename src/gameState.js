@@ -1,4 +1,4 @@
-import { modFox,modScene } from "./ui";
+import { modFox,modScene ,togglePoopBag, writeModal} from "./ui";
 import {
   SCENES,
   RAIN_CHANCE,
@@ -44,6 +44,7 @@ const gameState = {
     this.wakeTime = this.clock + 3;
     modFox("egg");
     modScene("day");
+    writeModal();
   },
   wake() {
     console.log("hatched");
@@ -61,7 +62,17 @@ const gameState = {
     this.state = "SLEEP";
     modFox("sleep");
     modScene("night");
+    this.clearTimes();
     this.wakeTime = this.clock + NIGHT_LENGTH;
+  },
+  clearTimes() {
+    this.wakeTime = -1;
+    this.sleepTime = -1;
+    this.hungryTime = -1;
+    this.dieTime = -1;
+    this.poopTime = -1;
+    this.timeToStartCelebrating = -1;
+    this.timeToEndCelebrating = -1;
   },
   handleUserAction(icon) {
     //can't do  actions while in these states
@@ -118,7 +129,11 @@ const gameState = {
     modFox("hungry");
   },
   die() {
-    console.log("die");
+    this.current = "DEAD";
+    modScene("dead");
+    modFox("dead");
+   this.clearTimes();
+    writeModal("The fox died :( <br/> Press the middle button to start");
   },
   startCelebrating() {
     this.current = "CELEBRATING";
@@ -130,6 +145,7 @@ const gameState = {
     this.timeToEndCelebrating = -1;
     this.current = "IDLING";
     this.determineFoxState();
+    togglePoopBag(false);
   },
   determineFoxState() {
     if (this.current === "IDLING") {
@@ -147,6 +163,5 @@ const gameState = {
     modFox("pooping");
   },
 };
-togglePoopBag(false);
 export default gameState;
 export const handleUserAction = gameState.handleUserAction.bind(gameState);
