@@ -1,13 +1,14 @@
 {
-  "name": "fox-game",
+  "name": "digital-pet",
   "version": "1.0.0",
   "description": "a digital pet game to train a fox",
   "main": "index.js",
   "scripts": {
     "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html",
     "test": "jest",
-    "predeploy": "npm run dev",
-    "deploy": "gh-pages -d dev"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "repository": {
     "type": "git",
