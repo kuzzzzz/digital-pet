@@ -23,7 +23,7 @@
   "bugs": {
     "url": "https://github.com/kuzzzzz/digital-pet/issues"
   },
-  "homepage": "https://kuzzzzz.github.io/fox-game",
+  "homepage": "https://kuzzzzz.github.io/digital-pet/",
   "devDependencies": {
     "eslint": "^7.2.0",
     "eslint-config-prettier": "^6.11.0",
