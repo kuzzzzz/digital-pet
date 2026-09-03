@@ -1,4 +1,4 @@
-import { modFox,modScene ,togglePoopBag, writeModal} from "./ui";
+import { modFox, modScene, togglePoopBag, writeModal, petFox } from "./ui";
 import {
   SCENES,
   RAIN_CHANCE,
@@ -8,6 +8,14 @@ import {
   getNextDieTime,
   getNextPoopTime,
 } from "./constants";
+import {
+  playHatch,
+  playFeed,
+  playPet,
+  playPoopClean,
+  playCelebrate,
+  playSad,
+} from "./sounds";
 
 const gameState = {
   current: "INIT",
@@ -50,6 +58,7 @@ const gameState = {
     console.log("hatched");
     this.current = "IDLING";
     this.wakeTime = -1;
+    playHatch();
     modFox("idling");
     this.scene = Math.random() > RAIN_CHANCE ? 0 : 1;
     modScene(SCENES[this.scene]);
@@ -98,6 +107,19 @@ const gameState = {
         break;
     }
   },
+  pet() {
+    // Petting is just for fun - allowed any time the pet is actually on
+    // screen and not mid-animation/asleep/gone.
+    if (
+      ["SLEEP", "FEEDING", "CELEBRATING", "HATCHING", "INIT", "DEAD"].includes(
+        this.current
+      )
+    ) {
+      return;
+    }
+    petFox();
+    playPet();
+  },
   changeWeather() {
     this.scene = (1 + this.scene) % SCENES.length;
     modScene(SCENES[this.scene]);
@@ -107,6 +129,7 @@ const gameState = {
     if (this.current === "POOPING") {
       this.dieTime = -1;
       togglePoopBag(true);
+      playPoopClean();
       this.startCelebrating();
       this.hungryTime = getNextHungerTime(this.clock);
     }
@@ -119,6 +142,7 @@ const gameState = {
     this.current = "FEEDING";
     this.dieTime = -1;
     this.poopTime = getNextPoopTime(this.clock);
+    playFeed();
     modFox("eating");
     this.timeToStartCelebrating = this.clock + 2;
   },
@@ -132,12 +156,16 @@ const gameState = {
     this.current = "DEAD";
     modScene("dead");
     modFox("dead");
-   this.clearTimes();
-    writeModal("The fox died :( <br/> Press the middle button to start");
+    this.clearTimes();
+    playSad();
+    writeModal(
+      "Your fox fell asleep and drifted off to dreamland 💤 <br/> Press the middle button to hatch a new friend!"
+    );
   },
   startCelebrating() {
     this.current = "CELEBRATING";
     modFox("celebrate");
+    playCelebrate();
     this.timeToStartCelebrating = -1;
     this.timeToEndCelebrating = this.clock + 2;
   },
@@ -165,3 +193,4 @@ const gameState = {
 };
 export default gameState;
 export const handleUserAction = gameState.handleUserAction.bind(gameState);
+export const petAction = gameState.pet.bind(gameState);

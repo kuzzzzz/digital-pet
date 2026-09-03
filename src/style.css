@@ -84,8 +84,23 @@ body{
   top: 0;
   left: 0;
   right: 0;
-  background-color: blueviolet;
+  background: linear-gradient(135deg, #7c5cff, #ff6fa5);
   color: white;
+  font-weight: bold;
+  border-radius: 0 0 18px 18px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  animation: modal-pop-in 0.25s ease;
+}
+
+@keyframes modal-pop-in {
+  from {
+    transform: translateY(-12px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .modal:empty {
@@ -99,7 +114,53 @@ body{
   position: absolute;
   top: 336px;
   left: 285px;
-  overflow: hidden;
+  overflow: visible;
+  cursor: pointer;
+}
+
+/* Tap-to-pet feedback: a quick playful bounce, independent of whichever
+   sprite/state animation is already running on the element. */
+.fox.pet-bounce {
+  animation: pet-bounce 0.4s ease;
+}
+
+@keyframes pet-bounce {
+  0% {
+    transform: scale(1) translateY(0);
+  }
+  35% {
+    transform: scale(1.12, 0.88) translateY(6px);
+  }
+  60% {
+    transform: scale(0.95, 1.08) translateY(-10px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+  }
+}
+
+.heart-particle {
+  position: absolute;
+  top: 10%;
+  font-size: 22px;
+  color: #ff5c8a;
+  pointer-events: none;
+  animation: heart-float 0.9s ease-out forwards;
+}
+
+@keyframes heart-float {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.6);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-60px) scale(1.1);
+  }
 }
 
 .fox-pooping {

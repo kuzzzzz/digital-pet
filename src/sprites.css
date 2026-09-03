@@ -8,6 +8,11 @@
   background-color: transparent;
   border-color: transparent;
   cursor: pointer;
+  transition: transform 0.12s ease;
+}
+
+.btn:active {
+  transform: scale(0.9);
 }
 
 .btn.middle-btn {
@@ -36,6 +41,16 @@
   background-repeat: no-repeat;
   background-color: transparent;
   border-color: transparent;
+  cursor: pointer;
+  transition: transform 0.12s ease;
+}
+
+.icon:hover {
+  transform: scale(1.08);
+}
+
+.icon:active {
+  transform: scale(0.92);
 }
 
 .icon.poop-icon {
